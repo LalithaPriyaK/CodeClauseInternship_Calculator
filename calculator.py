@@ -1,53 +1,69 @@
-def add(x, y):
-    return x + y
+import tkinter as tk
+from turtle import clear
+calculation =" "
 
-def subtract(x, y):
-    return x - y
+def add_to_calculation(symbols):
+    global calculation
+    print(calculation)
+    calculation +=str(symbols)
+    text_result.delete(1.0,"end")
+    text_result.insert(1.0, calculation)
 
-def multiply(x, y):
-    return x * y
+def evaluate_calculation():
+    global calculation
+    print(calculation)
+    try:
+       calculation =str(eval(calculation))
+       text_result.delete(1.0,"end")
+       text_result.insert(1.0, calculation)
+    except:
+       clear_field()
+       text_result.insert(1.0, "Error")
+def clear_field():
+    global calculation
+    calculation= ""
+    text_result.delete(1.0, "end")
 
-def divide(x, y):
-    if y != 0:
-        return x / y
-    else:
-        return "Cannot divide by zero"
+root=tk.Tk()
+root.geometry("300x275")
 
-def calculator():
-    print("Simple Calculator")
-    while True:
-        print("\nChoose operation:")
-        print("1. Addition")
-        print("2. Subtraction")
-        print("3. Multiplication")
-        print("4. Division")
-        print("5. Exit")
+text_result=tk.Text(root, height=2, width=16, font=("Arial",24))
+text_result.grid(columnspan=5)
 
-        choice = input("Enter choice (1/2/3/4/5): ")
-
-        if choice == '5':
-            print("Exiting the calculator. Goodbye!")
-            break
-
-        if choice not in ('1', '2', '3', '4'):
-            print("Invalid input. Please enter a valid choice.")
-            continue
-
-        num1 = float(input("Enter first number: "))
-        num2 = float(input("Enter second number: "))
-
-        if choice == '1':
-            result = add(num1, num2)
-            print(f"{num1} + {num2} = {result}")
-        elif choice == '2':
-            result = subtract(num1, num2)
-            print(f"{num1} - {num2} = {result}")
-        elif choice == '3':
-            result = multiply(num1, num2)
-            print(f"{num1} * {num2} = {result}")
-        elif choice == '4':
-            result = divide(num1, num2)
-            print(f"{num1} / {num2} = {result}")
-
-if __name__ == "__main__":
-    calculator()
+btn_1=tk.Button(root,text="1",command=lambda: add_to_calculation(1),width=5,font=("Arial",14))
+btn_1.grid(row=2,column=1)
+btn_2=tk.Button(root,text="2",command=lambda: add_to_calculation(2),width=5,font=("Arial",14))
+btn_2.grid(row=2,column=2)
+btn_3=tk.Button(root,text="3",command=lambda: add_to_calculation(3),width=5,font=("Arial",14))
+btn_3.grid(row=2,column=3)
+btn_4=tk.Button(root,text="4",command=lambda: add_to_calculation(4),width=5,font=("Arial",14))
+btn_4.grid(row=3,column=1)
+btn_5=tk.Button(root,text="5",command=lambda: add_to_calculation(5),width=5,font=("Arial",14))
+btn_5.grid(row=3,column=2)
+btn_6=tk.Button(root,text="6",command=lambda: add_to_calculation(6),width=5,font=("Arial",14))
+btn_6.grid(row=3,column=3)
+btn_7=tk.Button(root,text="7",command=lambda: add_to_calculation(7),width=5,font=("Arial",14))
+btn_7.grid(row=4,column=1)
+btn_8=tk.Button(root,text="8",command=lambda: add_to_calculation(8),width=5,font=("Arial",14))
+btn_8.grid(row=4,column=2)
+btn_9=tk.Button(root,text="9",command=lambda: add_to_calculation(9),width=5,font=("Arial",14))
+btn_9.grid(row=4,column=3)
+btn_0=tk.Button(root,text="0",command=lambda: add_to_calculation(0),width=5,font=("Arial",14))
+btn_0.grid(row=5,column=2)
+btn_plus=tk.Button(root,text="+",command=lambda: add_to_calculation("+"),width=5,font=("Arial",14))
+btn_plus.grid(row=2,column=4)
+btn_minus=tk.Button(root,text="-",command=lambda: add_to_calculation("-"),width=5,font=("Arial",14))
+btn_minus.grid(row=3,column=4)
+btn_mul=tk.Button(root,text="*",command=lambda: add_to_calculation("*"),width=5,font=("Arial",14))
+btn_mul.grid(row=4,column=4)
+btn_div=tk.Button(root,text="/",command=lambda: add_to_calculation("/"),width=5,font=("Arial",14))
+btn_div.grid(row=5,column=4)
+btn_open=tk.Button(root,text="(",command=lambda: add_to_calculation("("),width=5,font=("Arial",14))
+btn_open.grid(row=5,column=1)
+btn_close=tk.Button(root,text=")",command=lambda: add_to_calculation(")"),width=5,font=("Arial",14))
+btn_close.grid(row=5,column=3)
+btn_clear=tk.Button(root,text="C",command=clear_field,width=11,font=("Arial",14))
+btn_clear.grid(row=6,column=1, columnspan=2)
+btn_equals=tk.Button(root,text="=",command=evaluate_calculation,width=11,font=("Arial",14))
+btn_equals.grid(row=6,column=3,columnspan=2)
+root.mainloop()
